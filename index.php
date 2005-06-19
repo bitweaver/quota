@@ -1,0 +1,44 @@
+<?php
+// +----------------------------------------------------------------------+
+// | Copyright (c) 2004, bitweaver.org
+// +----------------------------------------------------------------------+
+// | All Rights Reserved. See copyright.txt for details and a complete list of authors.
+// | Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
+// |
+// | For comments, please use phpdocu.sourceforge.net documentation standards!!!
+// | -> see http://phpdocu.sourceforge.net/
+// +----------------------------------------------------------------------+
+// | Authors: spider <spider@steelsun.com>
+// +----------------------------------------------------------------------+
+//
+// $Id: index.php,v 1.1 2005/06/19 05:02:20 bitweaver Exp $
+
+require_once( '../bit_setup_inc.php' );
+
+$gBitSystem->verifyPackage( 'quota' );
+
+require_once( QUOTA_PKG_PATH.'LibertyQuota.php' );
+
+$quota = new LibertyQuota();
+$diskUsage = $quota->getUserUsage( $gBitUser->mUserId );
+$diskQuota = $quota->getUserQuota( $gBitUser->mUserId );
+
+if( $diskQuota != 0 ) {
+	$quotaPercent = round( (($diskUsage / $diskQuota) * 100), 0 );
+} else {
+	$quotaPercent = 0;
+}
+
+if( $quotaPercent > 100 ) {
+	$errors['disk_quota'] = "You are over your disk quota.";
+	$smarty->assign_by_ref( 'errors', $errors );
+	$quotaPercent = 100;
+}
+
+$smarty->assign( 'usage', round( ($diskUsage / 1000000), 2 ) );
+$smarty->assign( 'quota', round( ($diskQuota / 1000000), 2 ) );
+$smarty->assign_by_ref( 'quotaPercent', $quotaPercent );
+
+$gBitSystem->display( 'bitpackage:quota/quota.tpl', 'View Quota' );
+
+?>
