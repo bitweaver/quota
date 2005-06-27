@@ -1,31 +1,35 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.1.1.1.2.1 2005/06/27 00:39:25 lsces Exp $
-*
-* Copyright (c) 2004 bitweaver.org
-* Copyright (c) 2003 tikwiki.org
-* Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
-* All Rights Reserved. See copyright.txt for details and a complete list of authors.
-* Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
-*
-* $Id: LibertyQuota.php,v 1.1.1.1.2.1 2005/06/27 00:39:25 lsces Exp $
-*/
+ * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.1.1.1.2.2 2005/06/27 15:10:30 lsces Exp $
+ *
+ * Copyright (c) 2004 bitweaver.org
+ * Copyright (c) 2003 tikwiki.org
+ * Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
+ * All Rights Reserved. See copyright.txt for details and a complete list of authors.
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
+ *
+ * $Id: LibertyQuota.php,v 1.1.1.1.2.2 2005/06/27 15:10:30 lsces Exp $
+ * @package quota
+ */
+
 /**
-* Quota class to illustrate best practices when creating a new bitweaver package that
-* builds on core bitweaver functionality, such as the Liberty CMS engine
-*
-* @package LibertyQuota
-*
-* created 2004/8/15
-*
-* @author spider <spider@steelsun.com>
-*
-* @version $Revision: 1.1.1.1.2.1 $ $Date: 2005/06/27 00:39:25 $ $Author: lsces $
-*/
-
-
+ * required setup
+ */
 require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
 
+/**
+ * Quota class to illustrate best practices when creating a new bitweaver package that
+ * builds on core bitweaver functionality, such as the Liberty CMS engine
+ *
+ * @package quota
+ * @subpackage LibertyQuota
+ *
+ * created 2004/8/15
+ *
+ * @author spider <spider@steelsun.com>
+ *
+ * @version $Revision: 1.1.1.1.2.2 $ $Date: 2005/06/27 15:10:30 $ $Author: lsces $
+ */
 class LibertyQuota extends LibertyBase {
     /**
     * Primary key for our mythical Quota class object & table
