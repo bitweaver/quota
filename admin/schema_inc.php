@@ -29,10 +29,10 @@ global $gBitInstaller;
 $gBitInstaller->makePackageHomeable('quota');
 
 foreach( array_keys( $tables ) AS $tableName ) {
-	$gBitInstaller->registerSchemaTable( QUOTA_PKG_DIR, $tableName, $tables[$tableName] );
+	$gBitInstaller->registerSchemaTable( QUOTA_PKG_NAME, $tableName, $tables[$tableName] );
 }
 
-$gBitInstaller->registerPackageInfo( QUOTA_PKG_DIR, array(
+$gBitInstaller->registerPackageInfo( QUOTA_PKG_NAME, array(
 	'description' => "Quota system limits user disk and bandwidth usage for Liberty content",
 	'license' => '<a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL</a>',
 	'version' => '0.1',
@@ -44,15 +44,15 @@ $gBitInstaller->registerPackageInfo( QUOTA_PKG_DIR, array(
 $indices = array (
 	'tiki_quotas_group_idx' => array( 'table' => 'tiki_quotas_group_map', 'cols' => 'group_id', 'opts' => array( 'UNIQUE' ) ),
 );
-$gBitInstaller->registerSchemaIndexes( QUOTA_PKG_DIR, $indices );
+$gBitInstaller->registerSchemaIndexes( QUOTA_PKG_NAME, $indices );
 
 // ### Sequences
 $sequences = array (
 	'tiki_quota_id_seq' => array( 'start' => 3 ) 
 );
-$gBitInstaller->registerSchemaSequences( QUOTA_PKG_DIR, $sequences );
+$gBitInstaller->registerSchemaSequences( QUOTA_PKG_NAME, $sequences );
 
-$gBitInstaller->registerSchemaDefault( QUOTA_PKG_DIR, array(
+$gBitInstaller->registerSchemaDefault( QUOTA_PKG_NAME, array(
 
 	"INSERT INTO `".BIT_DB_PREFIX."tiki_quotas` ( `quota_id`, `disk_usage`, `monthly_transfer`, `title`, `description` ) VALUES ('1', 2000000, 20000000, 'Free Trial', 'A little space to try out site features' )",
 	"INSERT INTO `".BIT_DB_PREFIX."tiki_quotas` ( `quota_id`, `disk_usage`, `monthly_transfer`, `title`, `description` ) VALUES ('2', 10000000, 100000000, 'Site Supporters', 'Extra space for site supporters.' )",
