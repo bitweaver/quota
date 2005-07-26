@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/index.php,v 1.1.1.1.2.1 2005/06/27 15:10:30 lsces Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/index.php,v 1.1.1.1.2.2 2005/07/26 15:50:25 drewslater Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: index.php,v 1.1.1.1.2.1 2005/06/27 15:10:30 lsces Exp $
+ * $Id: index.php,v 1.1.1.1.2.2 2005/07/26 15:50:25 drewslater Exp $
  * @package quota
  */
 
@@ -33,13 +33,13 @@ if( $diskQuota != 0 ) {
 
 if( $quotaPercent > 100 ) {
 	$errors['disk_quota'] = "You are over your disk quota.";
-	$smarty->assign_by_ref( 'errors', $errors );
+	$gBitSmarty->assign_by_ref( 'errors', $errors );
 	$quotaPercent = 100;
 }
 
-$smarty->assign( 'usage', round( ($diskUsage / 1000000), 2 ) );
-$smarty->assign( 'quota', round( ($diskQuota / 1000000), 2 ) );
-$smarty->assign_by_ref( 'quotaPercent', $quotaPercent );
+$gBitSmarty->assign( 'usage', round( ($diskUsage / 1000000), 2 ) );
+$gBitSmarty->assign( 'quota', round( ($diskQuota / 1000000), 2 ) );
+$gBitSmarty->assign_by_ref( 'quotaPercent', $quotaPercent );
 
 $gBitSystem->display( 'bitpackage:quota/quota.tpl', 'View Quota' );
 
