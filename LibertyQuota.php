@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.1.1.1.2.2 2005/06/27 15:10:30 lsces Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.1.1.1.2.3 2005/08/06 18:31:32 lsces Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: LibertyQuota.php,v 1.1.1.1.2.2 2005/06/27 15:10:30 lsces Exp $
+ * $Id: LibertyQuota.php,v 1.1.1.1.2.3 2005/08/06 18:31:32 lsces Exp $
  * @package quota
  */
 
@@ -28,7 +28,7 @@ require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
  *
  * @author spider <spider@steelsun.com>
  *
- * @version $Revision: 1.1.1.1.2.2 $ $Date: 2005/06/27 15:10:30 $ $Author: lsces $
+ * @version $Revision: 1.1.1.1.2.3 $ $Date: 2005/08/06 18:31:32 $ $Author: lsces $
  */
 class LibertyQuota extends LibertyBase {
     /**
@@ -52,7 +52,7 @@ class LibertyQuota extends LibertyBase {
 	**/
 	function store( &$pParamHash ) {
 		if( $this->verify( $pParamHash ) ) {
-			$this->mDb->StartTrans();
+			$this->StartTrans();
 			$table = BIT_DB_PREFIX."tiki_quotas";
 			if( $this->mQuotaId ) {
 				$locId = array ( "name" => "quota_id", "value" => $pParamHash['quota_id'] );
@@ -62,7 +62,7 @@ class LibertyQuota extends LibertyBase {
 				$pParamHash['quota_store']['quota_id'] = $this->mQuotaId;
 				$result = $this->associateInsert( $table, $pParamHash['quota_store'] );
 			}
-			$this->mDb->CompleteTrans();
+			$this->CompleteTrans();
 			$this->load();
 		}
 		return( count( $this->mErrors ) == 0 );
@@ -145,7 +145,7 @@ class LibertyQuota extends LibertyBase {
 				FROM `".BIT_DB_PREFIX."users_groups` ug LEFT OUTER JOIN `".BIT_DB_PREFIX."tiki_quotas_group_map` tqm ON( tqm.`group_id`=ug.`group_id` )
 				WHERE ug.`user_id`=".ROOT_USER_ID."
 				ORDER BY ug.`group_name` ASC";
-		return $this->mDb->GetAssoc( $sql );
+		return $this->GetAssoc( $sql );
 	}
 
 	
