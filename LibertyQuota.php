@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.3 2005/08/07 17:44:03 squareing Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.4 2005/08/07 22:18:52 lsces Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: LibertyQuota.php,v 1.3 2005/08/07 17:44:03 squareing Exp $
+ * $Id: LibertyQuota.php,v 1.4 2005/08/07 22:18:52 lsces Exp $
  * @package quota
  */
 
@@ -28,7 +28,7 @@ require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
  *
  * @author spider <spider@steelsun.com>
  *
- * @version $Revision: 1.3 $ $Date: 2005/08/07 17:44:03 $ $Author: squareing $
+ * @version $Revision: 1.4 $ $Date: 2005/08/07 22:18:52 $ $Author: lsces $
  */
 class LibertyQuota extends LibertyBase {
     /**
@@ -155,7 +155,7 @@ class LibertyQuota extends LibertyBase {
 	**/
 	function assignQuotaToGroup( $pQuotaId, $pGroupId ) {
 		if( is_numeric( $pQuotaId ) && is_numeric( $pGroupId ) ) {
-			$hasRow = $this->GetOne( 'SELECT `quota_id` FROM  `'.BIT_DB_PREFIX.'tiki_quotas_group_map` WHERE `group_id`=?',array( $pGroupId ) );
+			$hasRow = $this->mDb->getOne( 'SELECT `quota_id` FROM  `'.BIT_DB_PREFIX.'tiki_quotas_group_map` WHERE `group_id`=?',array( $pGroupId ) );
  			if( $hasRow ) {
 				$query = 'UPDATE `'.BIT_DB_PREFIX.'tiki_quotas_group_map` SET `quota_id`=? WHERE `group_id`=?';
 				$rs = $this->mDb->query( $query, array( $pQuotaId, $pGroupId ) );
