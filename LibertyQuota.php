@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.1.1.1.2.4 2005/08/07 13:22:03 lsces Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.1.1.1.2.5 2005/08/07 16:25:53 lsces Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: LibertyQuota.php,v 1.1.1.1.2.4 2005/08/07 13:22:03 lsces Exp $
+ * $Id: LibertyQuota.php,v 1.1.1.1.2.5 2005/08/07 16:25:53 lsces Exp $
  * @package quota
  */
 
@@ -28,7 +28,7 @@ require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
  *
  * @author spider <spider@steelsun.com>
  *
- * @version $Revision: 1.1.1.1.2.4 $ $Date: 2005/08/07 13:22:03 $ $Author: lsces $
+ * @version $Revision: 1.1.1.1.2.5 $ $Date: 2005/08/07 16:25:53 $ $Author: lsces $
  */
 class LibertyQuota extends LibertyBase {
     /**
@@ -52,18 +52,18 @@ class LibertyQuota extends LibertyBase {
 	**/
 	function store( &$pParamHash ) {
 		if( $this->verify( $pParamHash ) ) {
-			$this->getDb()->StartTrans();
+			$this->mDb->StartTrans();
 			$table = BIT_DB_PREFIX."tiki_quotas";
 			if( $this->mQuotaId ) {
 				$locId = array ( "name" => "quota_id", "value" => $pParamHash['quota_id'] );
-				$result = $this->getDb()->associateUpdate( $table, $pParamHash['quota_store'], $locId );
+				$result = $this->mDb->associateUpdate( $table, $pParamHash['quota_store'], $locId );
 			} else {
-				$this->mQuotaId = $this->getDb()->GenID( 'tiki_quota_id_seq' );
+				$this->mQuotaId = $this->mDb->GenID( 'tiki_quota_id_seq' );
 				$pParamHash['quota_store']['quota_id'] = $this->mQuotaId;
-				$result = $this->getDb()->associateInsert( $table, $pParamHash['quota_store'] );
+				$result = $this->mDb->associateInsert( $table, $pParamHash['quota_store'] );
 			}
 			$this->load();
-			$this->getDb()->CompleteTrans();
+			$this->mDb->CompleteTrans();
 		}
 		return( count( $this->mErrors ) == 0 );
 	}
@@ -108,11 +108,11 @@ class LibertyQuota extends LibertyBase {
 			// LibertyContent::load() assumes you have joined already, and will not execute any sql!
 			// This is a significant performance optimization
 			$query = "SELECT tq.* FROM `".BIT_DB_PREFIX."tiki_quotas` tq WHERE tq.`quota_id`=?";
-			$result = $this->getDb()->query( $query, array( $this->mQuotaId ) );
+			$result = $this->mDb->query( $query, array( $this->mQuotaId ) );
 			if ( $result && $result->numRows() ) {
 				$this->mInfo = $result->fields;
 				$query = "SELECT ug.`group_id`, ug.* FROM `".BIT_DB_PREFIX."users_groups` ug INNER JOIN `".BIT_DB_PREFIX."tiki_quotas_group_map` tqm ON( ug.`group_id`=tqm.`group_id` ) WHERE tqm.`quota_id`=?";
-				if( $rs = $this->getDb()->query( $query, array( $this->mQuotaId ) ) ) {
+				if( $rs = $this->mDb->query( $query, array( $this->mQuotaId ) ) ) {
 					$this->mInfo['quota_groups'] = $rs->fields;
 				}
 			}
@@ -125,7 +125,7 @@ class LibertyQuota extends LibertyBase {
 	**/
 	function getList() {
 		$query = "SELECT tq.`quota_id`, tq.* FROM `".BIT_DB_PREFIX."tiki_quotas` tq";
-		$ret = $this->getDb()->getAssoc($query);
+		$ret = $this->mDb->getAssoc($query);
 		return ( $ret );
 	}
 
@@ -134,7 +134,7 @@ class LibertyQuota extends LibertyBase {
 	**/
 	function getQuotaMenu( $pName='quota_menu', $pSelectId=NULL ) {
 		$query = "SELECT tq.`title`, tq.`quota_id` FROM `".BIT_DB_PREFIX."tiki_quotas` tq";
-		if( $rs = $this->getDb()->query($query) ) {
+		if( $rs = $this->mDb->query($query) ) {
 			$ret = $rs->GetMenu2( $pName, $pSelectId );
 		}
 		return ( $ret );
@@ -145,7 +145,7 @@ class LibertyQuota extends LibertyBase {
 				FROM `".BIT_DB_PREFIX."users_groups` ug LEFT OUTER JOIN `".BIT_DB_PREFIX."tiki_quotas_group_map` tqm ON( tqm.`group_id`=ug.`group_id` )
 				WHERE ug.`user_id`=".ROOT_USER_ID."
 				ORDER BY ug.`group_name` ASC";
-		return $this->getDb()->getAssoc( $sql );
+		return $this->mDb->getAssoc( $sql );
 	}
 
 	
@@ -158,14 +158,14 @@ class LibertyQuota extends LibertyBase {
 			$hasRow = $this->GetOne( 'SELECT `quota_id` FROM  `'.BIT_DB_PREFIX.'tiki_quotas_group_map` WHERE `group_id`=?',array( $pGroupId ) );
  			if( $hasRow ) {
 				$query = 'UPDATE `'.BIT_DB_PREFIX.'tiki_quotas_group_map` SET `quota_id`=? WHERE `group_id`=?';
-				$rs = $this->getDb()->query( $query, array( $pQuotaId, $pGroupId ) );
+				$rs = $this->mDb->query( $query, array( $pQuotaId, $pGroupId ) );
 			} else {
 				$query = 'INSERT INTO `'.BIT_DB_PREFIX.'tiki_quotas_group_map` (`quota_id`, `group_id`) VALUES (?,?)';
-				$rs = $this->getDb()->query( $query, array( $pQuotaId, $pGroupId ) );
+				$rs = $this->mDb->query( $query, array( $pQuotaId, $pGroupId ) );
 			}
 		} elseif( is_numeric( $pGroupId ) && empty( $pQuotaId ) ) {
 			$query = 'DELETE FROM `'.BIT_DB_PREFIX.'tiki_quotas_group_map` WHERE `group_id`=?';
-			$rs = $this->getDb()->query( $query, array( $pGroupId ) );
+			$rs = $this->mDb->query( $query, array( $pGroupId ) );
 		}
 	}
 
@@ -182,7 +182,7 @@ class LibertyQuota extends LibertyBase {
 						INNER JOIN `'.BIT_DB_PREFIX.'tiki_quotas_group_map` tqm ON( tqm.`group_id`=ugm.`group_id` ) 
 						INNER JOIN `'.BIT_DB_PREFIX.'tiki_quotas` tq ON( tq.`quota_id`=tqm.`quota_id` ) 
 					  WHERE uu.`user_id`=?';
-			if( $rs = $this->getDb()->query( $query, array( $pUserId ) ) ) {
+			if( $rs = $this->mDb->query( $query, array( $pUserId ) ) ) {
 				$diskQuota = $rs->fields['disk_usage'];
 				$diskConsumed = $this->getUserUsage( $pUserId );
 				if( $diskQuota > $diskConsumed ) {
@@ -208,7 +208,7 @@ class LibertyQuota extends LibertyBase {
 						INNER JOIN `'.BIT_DB_PREFIX.'tiki_quotas_group_map` tqm ON( tqm.`group_id`=ugm.`group_id` ) 
 						INNER JOIN `'.BIT_DB_PREFIX.'tiki_quotas` tq ON( tq.`quota_id`=tqm.`quota_id` ) 
 					  WHERE uu.`user_id`=?';
-			$ret = $this->getDb()->getOne( $query, array( $pUserId ) );
+			$ret = $this->mDb->getOne( $query, array( $pUserId ) );
 		}
 		return $ret;
 	}
@@ -221,7 +221,7 @@ class LibertyQuota extends LibertyBase {
 	function getUserUsage( $pUserId ) {
 		$ret = 0;
 		if( is_numeric( $pUserId ) ) {
-			$ret = $this->getDb()->getOne( "SELECT SUM(`size`) FROM `".BIT_DB_PREFIX."tiki_files` WHERE `user_id`=?", array( $pUserId ) );
+			$ret = $this->mDb->getOne( "SELECT SUM(`size`) FROM `".BIT_DB_PREFIX."tiki_files` WHERE `user_id`=?", array( $pUserId ) );
 		}
 		return $ret;
 	}
