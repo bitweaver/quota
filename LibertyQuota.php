@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.4 2005/08/07 22:18:52 lsces Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.5 2005/12/26 12:25:40 squareing Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: LibertyQuota.php,v 1.4 2005/08/07 22:18:52 lsces Exp $
+ * $Id: LibertyQuota.php,v 1.5 2005/12/26 12:25:40 squareing Exp $
  * @package quota
  */
 
@@ -28,7 +28,7 @@ require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
  *
  * @author spider <spider@steelsun.com>
  *
- * @version $Revision: 1.4 $ $Date: 2005/08/07 22:18:52 $ $Author: lsces $
+ * @version $Revision: 1.5 $ $Date: 2005/12/26 12:25:40 $ $Author: squareing $
  */
 class LibertyQuota extends LibertyBase {
     /**
@@ -233,14 +233,14 @@ class LibertyQuota extends LibertyBase {
     */
 	function getDisplayUrl() {
 		$ret = NULL;
-		if( !empty( $this->mQuotaId ) ) {
+		if( @BitBase::verifyId( $this->mQuotaId ) ) {
 			$ret = QUOTA_PKG_URL."index.php?quota_id=".$this->mQuotaId;
 		}
 		return $ret;
 	}
 	
 	function isValid() {
-		return( !empty( $this->mQuotaId ) );
+		return( @BitBase::verifyId( $this->mQuotaId ) );
 	}
 	
 }
