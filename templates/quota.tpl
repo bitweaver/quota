@@ -3,6 +3,8 @@
 		<h1>{tr}Usage Quota{/tr}</h1>
 	</div>
 
+	{include file="bitpackage:users/my_bitweaver_bar.tpl"}
+
 	<div class="body">
 		{legend legend="Your Personal Usage Quota"}
 			{if $gBitUser->isAdmin()}
