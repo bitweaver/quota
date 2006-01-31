@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.5 2005/12/26 12:25:40 squareing Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.6 2006/01/31 20:19:39 bitweaver Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: LibertyQuota.php,v 1.5 2005/12/26 12:25:40 squareing Exp $
+ * $Id: LibertyQuota.php,v 1.6 2006/01/31 20:19:39 bitweaver Exp $
  * @package quota
  */
 
@@ -28,7 +28,7 @@ require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
  *
  * @author spider <spider@steelsun.com>
  *
- * @version $Revision: 1.5 $ $Date: 2005/12/26 12:25:40 $ $Author: squareing $
+ * @version $Revision: 1.6 $ $Date: 2006/01/31 20:19:39 $ $Author: bitweaver $
  */
 class LibertyQuota extends LibertyBase {
     /**
@@ -53,12 +53,12 @@ class LibertyQuota extends LibertyBase {
 	function store( &$pParamHash ) {
 		if( $this->verify( $pParamHash ) ) {
 			$this->mDb->StartTrans();
-			$table = BIT_DB_PREFIX."tiki_quotas";
+			$table = BIT_DB_PREFIX."quotas";
 			if( $this->mQuotaId ) {
 				$locId = array ( "name" => "quota_id", "value" => $pParamHash['quota_id'] );
 				$result = $this->mDb->associateUpdate( $table, $pParamHash['quota_store'], $locId );
 			} else {
-				$this->mQuotaId = $this->mDb->GenID( 'tiki_quota_id_seq' );
+				$this->mQuotaId = $this->mDb->GenID( 'quota_id_seq' );
 				$pParamHash['quota_store']['quota_id'] = $this->mQuotaId;
 				$result = $this->mDb->associateInsert( $table, $pParamHash['quota_store'] );
 			}
@@ -107,11 +107,11 @@ class LibertyQuota extends LibertyBase {
 		if( $this->mQuotaId ) {
 			// LibertyContent::load() assumes you have joined already, and will not execute any sql!
 			// This is a significant performance optimization
-			$query = "SELECT tq.* FROM `".BIT_DB_PREFIX."tiki_quotas` tq WHERE tq.`quota_id`=?";
+			$query = "SELECT qo.* FROM `".BIT_DB_PREFIX."quotas` qo WHERE qo.`quota_id`=?";
 			$result = $this->mDb->query( $query, array( $this->mQuotaId ) );
 			if ( $result && $result->numRows() ) {
 				$this->mInfo = $result->fields;
-				$query = "SELECT ug.`group_id`, ug.* FROM `".BIT_DB_PREFIX."users_groups` ug INNER JOIN `".BIT_DB_PREFIX."tiki_quotas_group_map` tqm ON( ug.`group_id`=tqm.`group_id` ) WHERE tqm.`quota_id`=?";
+				$query = "SELECT ug.`group_id`, ug.* FROM `".BIT_DB_PREFIX."users_groups` ug INNER JOIN `".BIT_DB_PREFIX."quotas_group_map` qgm ON( ug.`group_id`=qgm.`group_id` ) WHERE qgm.`quota_id`=?";
 				if( $rs = $this->mDb->query( $query, array( $this->mQuotaId ) ) ) {
 					$this->mInfo['quota_groups'] = $rs->fields;
 				}
@@ -124,7 +124,7 @@ class LibertyQuota extends LibertyBase {
     * 
 	**/
 	function getList() {
-		$query = "SELECT tq.`quota_id`, tq.* FROM `".BIT_DB_PREFIX."tiki_quotas` tq";
+		$query = "SELECT qo.`quota_id`, qo.* FROM `".BIT_DB_PREFIX."quotas` qo";
 		$ret = $this->mDb->getAssoc($query);
 		return ( $ret );
 	}
@@ -133,7 +133,7 @@ class LibertyQuota extends LibertyBase {
     * 
 	**/
 	function getQuotaMenu( $pName='quota_menu', $pSelectId=NULL ) {
-		$query = "SELECT tq.`title`, tq.`quota_id` FROM `".BIT_DB_PREFIX."tiki_quotas` tq";
+		$query = "SELECT qo.`title`, qo.`quota_id` FROM `".BIT_DB_PREFIX."quotas` qo";
 		if( $rs = $this->mDb->query($query) ) {
 			$ret = $rs->GetMenu2( $pName, $pSelectId );
 		}
@@ -141,8 +141,8 @@ class LibertyQuota extends LibertyBase {
 	}
 
 	function getQuotaGroups() {
-		$sql = "SELECT ug.`group_id`, ug.*, tqm.`quota_id`
-				FROM `".BIT_DB_PREFIX."users_groups` ug LEFT OUTER JOIN `".BIT_DB_PREFIX."tiki_quotas_group_map` tqm ON( tqm.`group_id`=ug.`group_id` )
+		$sql = "SELECT ug.`group_id`, ug.*, qgm.`quota_id`
+				FROM `".BIT_DB_PREFIX."users_groups` ug LEFT OUTER JOIN `".BIT_DB_PREFIX."quotas_group_map` qgm ON( qgm.`group_id`=ug.`group_id` )
 				WHERE ug.`user_id`=".ROOT_USER_ID."
 				ORDER BY ug.`group_name` ASC";
 		return $this->mDb->getAssoc( $sql );
@@ -155,16 +155,16 @@ class LibertyQuota extends LibertyBase {
 	**/
 	function assignQuotaToGroup( $pQuotaId, $pGroupId ) {
 		if( is_numeric( $pQuotaId ) && is_numeric( $pGroupId ) ) {
-			$hasRow = $this->mDb->getOne( 'SELECT `quota_id` FROM  `'.BIT_DB_PREFIX.'tiki_quotas_group_map` WHERE `group_id`=?',array( $pGroupId ) );
+			$hasRow = $this->mDb->getOne( 'SELECT `quota_id` FROM  `'.BIT_DB_PREFIX.'quotas_group_map` WHERE `group_id`=?',array( $pGroupId ) );
  			if( $hasRow ) {
-				$query = 'UPDATE `'.BIT_DB_PREFIX.'tiki_quotas_group_map` SET `quota_id`=? WHERE `group_id`=?';
+				$query = 'UPDATE `'.BIT_DB_PREFIX.'quotas_group_map` SET `quota_id`=? WHERE `group_id`=?';
 				$rs = $this->mDb->query( $query, array( $pQuotaId, $pGroupId ) );
 			} else {
-				$query = 'INSERT INTO `'.BIT_DB_PREFIX.'tiki_quotas_group_map` (`quota_id`, `group_id`) VALUES (?,?)';
+				$query = 'INSERT INTO `'.BIT_DB_PREFIX.'quotas_group_map` (`quota_id`, `group_id`) VALUES (?,?)';
 				$rs = $this->mDb->query( $query, array( $pQuotaId, $pGroupId ) );
 			}
 		} elseif( is_numeric( $pGroupId ) && empty( $pQuotaId ) ) {
-			$query = 'DELETE FROM `'.BIT_DB_PREFIX.'tiki_quotas_group_map` WHERE `group_id`=?';
+			$query = 'DELETE FROM `'.BIT_DB_PREFIX.'quotas_group_map` WHERE `group_id`=?';
 			$rs = $this->mDb->query( $query, array( $pGroupId ) );
 		}
 	}
@@ -176,11 +176,11 @@ class LibertyQuota extends LibertyBase {
 	function isUserUnderQuota( $pUserId ) {
 		$ret = FALSE;
 		if( is_numeric( $pUserId) ) {
-			$query = 'SELECT MAX(tq.`disk_usage`) AS `disk_usage` 
+			$query = 'SELECT MAX(qo.`disk_usage`) AS `disk_usage` 
 					  FROM `'.BIT_DB_PREFIX.'users_users` uu
 						INNER JOIN `'.BIT_DB_PREFIX.'users_groups_map` ugm ON ( ugm.`user_id`=uu.`user_id` )
-						INNER JOIN `'.BIT_DB_PREFIX.'tiki_quotas_group_map` tqm ON( tqm.`group_id`=ugm.`group_id` ) 
-						INNER JOIN `'.BIT_DB_PREFIX.'tiki_quotas` tq ON( tq.`quota_id`=tqm.`quota_id` ) 
+						INNER JOIN `'.BIT_DB_PREFIX.'quotas_group_map` qgm ON( qgm.`group_id`=ugm.`group_id` ) 
+						INNER JOIN `'.BIT_DB_PREFIX.'quotas` qo ON( qo.`quota_id`=qgm.`quota_id` ) 
 					  WHERE uu.`user_id`=?';
 			if( $rs = $this->mDb->query( $query, array( $pUserId ) ) ) {
 				$diskQuota = $rs->fields['disk_usage'];
@@ -202,11 +202,11 @@ class LibertyQuota extends LibertyBase {
 	function getUserQuota( $pUserId ) {
 		$ret = 0;
 		if( is_numeric( $pUserId ) ) {
-			$query = 'SELECT MAX(tq.`disk_usage`) AS `disk_usage` 
+			$query = 'SELECT MAX(qo.`disk_usage`) AS `disk_usage` 
 					  FROM `'.BIT_DB_PREFIX.'users_users` uu
 						INNER JOIN `'.BIT_DB_PREFIX.'users_groups_map` ugm ON ( ugm.`user_id`=uu.`user_id` )
-						INNER JOIN `'.BIT_DB_PREFIX.'tiki_quotas_group_map` tqm ON( tqm.`group_id`=ugm.`group_id` ) 
-						INNER JOIN `'.BIT_DB_PREFIX.'tiki_quotas` tq ON( tq.`quota_id`=tqm.`quota_id` ) 
+						INNER JOIN `'.BIT_DB_PREFIX.'quotas_group_map` qgm ON( qgm.`group_id`=ugm.`group_id` ) 
+						INNER JOIN `'.BIT_DB_PREFIX.'quotas` qo ON( qo.`quota_id`=qgm.`quota_id` ) 
 					  WHERE uu.`user_id`=?';
 			$ret = $this->mDb->getOne( $query, array( $pUserId ) );
 		}
