@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.6 2006/01/31 20:19:39 bitweaver Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.7 2006/02/01 18:42:54 squareing Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: LibertyQuota.php,v 1.6 2006/01/31 20:19:39 bitweaver Exp $
+ * $Id: LibertyQuota.php,v 1.7 2006/02/01 18:42:54 squareing Exp $
  * @package quota
  */
 
@@ -28,7 +28,7 @@ require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
  *
  * @author spider <spider@steelsun.com>
  *
- * @version $Revision: 1.6 $ $Date: 2006/01/31 20:19:39 $ $Author: bitweaver $
+ * @version $Revision: 1.7 $ $Date: 2006/02/01 18:42:54 $ $Author: squareing $
  */
 class LibertyQuota extends LibertyBase {
     /**
@@ -221,7 +221,7 @@ class LibertyQuota extends LibertyBase {
 	function getUserUsage( $pUserId ) {
 		$ret = 0;
 		if( is_numeric( $pUserId ) ) {
-			$ret = $this->mDb->getOne( "SELECT SUM(`size`) FROM `".BIT_DB_PREFIX."tiki_files` WHERE `user_id`=?", array( $pUserId ) );
+			$ret = $this->mDb->getOne( "SELECT SUM(`size`) FROM `".BIT_DB_PREFIX."liberty_files` WHERE `user_id`=?", array( $pUserId ) );
 		}
 		return $ret;
 	}
