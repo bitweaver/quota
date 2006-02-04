@@ -18,7 +18,7 @@ $tables = array(
 'quotas_group_map' => "
 	quota_id I4 PRIMARY,
 	group_id I4 PRIMARY
-	CONSTRAINTS ', CONSTRAINT `quotas_group_ref` FOREIGN KEY (`group_id`) REFERENCES `".BIT_DB_PREFIX."users_groups`( `group_id` )
+	CONSTRAINT ', CONSTRAINT `quotas_group_ref` FOREIGN KEY (`group_id`) REFERENCES `".BIT_DB_PREFIX."users_groups`( `group_id` )
 				 , CONSTRAINT `quotas_map_ref` FOREIGN KEY (`quota_id`) REFERENCES `".BIT_DB_PREFIX."quotas`( `quota_id` )'
 ",
 
