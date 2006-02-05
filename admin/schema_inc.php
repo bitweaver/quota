@@ -35,9 +35,6 @@ foreach( array_keys( $tables ) AS $tableName ) {
 $gBitInstaller->registerPackageInfo( QUOTA_PKG_NAME, array(
 	'description' => "Quota system limits user disk and bandwidth usage for Liberty content",
 	'license' => '<a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL</a>',
-	'version' => '0.1',
-	'state' => 'beta',
-	'dependencies' => 'liberty',
 ) );
 
 // ### Indexes
