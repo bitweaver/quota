@@ -36,8 +36,8 @@
 		{foreach key=quotaId item=quota from=$quotaList}
 			<tr class="{cycle values=odd,even}">
 				<td><a href="{$smarty.server.PHP_SELF}?page=quota&quota_id={$quotaId}">{$quota.title}</a></td>
-	    		<td align="right">{$quota.disk_usage/1000000} MB</td>
-    			<td align="right">{$quota.monthly_transfer/1000000} MB</td>
+				<td align="right">{$quota.disk_usage/1000000} MB</td>
+				<td align="right">{$quota.monthly_transfer/1000000} MB</td>
 			</tr>
 		{/foreach}
 	</table>

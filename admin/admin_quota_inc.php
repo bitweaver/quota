@@ -1,12 +1,14 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_quota/admin/admin_quota_inc.php,v 1.2 2005/08/01 18:41:18 squareing Exp $
+// $Header: /cvsroot/bitweaver/_bit_quota/admin/admin_quota_inc.php,v 1.3 2006/02/08 21:51:14 squareing Exp $
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-if (isset($_REQUEST["quotaset"]) && isset($_REQUEST["homeSample"])) {
-	$gBitSystem->storePreference("home_quota", $_REQUEST["homeSample"]);
-	$gBitSmarty->assign('home_quota', $_REQUEST["homeSample"]);
-}
+
+// is this used?
+//if( isset( $_REQUEST["quotaset"] ) && isset( $_REQUEST["homeSample"] ) ) {
+//	$gBitSystem->storePreference( "home_quota", $_REQUEST["homeSample"], QUOTA_PKG_NAME );
+//	$gBitSmarty->assign( 'home_quota', $_REQUEST["homeSample"] );
+//}
 
 require_once( QUOTA_PKG_PATH.'LibertyQuota.php' );
 
