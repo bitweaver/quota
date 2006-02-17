@@ -1,9 +1,9 @@
 <?php
 global $gBitSystem, $gBitSmarty;
-$gBitSystem->registerPackage( 'quota', dirname( __FILE__).'/' );
 
-if( $gBitSystem->isPackageActive( 'quota' ) ) {
-
-}
-
+$registerHash = array(
+	'package_name' => 'quota',
+	'package_path' => dirname( __FILE__ ).'/',
+);
+$gBitSystem->registerPackage( $registerHash );
 ?>
