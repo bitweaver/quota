@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.8 2006/02/08 23:24:28 spiderr Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.9 2006/02/18 21:03:46 spiderr Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: LibertyQuota.php,v 1.8 2006/02/08 23:24:28 spiderr Exp $
+ * $Id: LibertyQuota.php,v 1.9 2006/02/18 21:03:46 spiderr Exp $
  * @package quota
  */
 
@@ -28,7 +28,7 @@ require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
  *
  * @author spider <spider@steelsun.com>
  *
- * @version $Revision: 1.8 $ $Date: 2006/02/08 23:24:28 $ $Author: spiderr $
+ * @version $Revision: 1.9 $ $Date: 2006/02/18 21:03:46 $ $Author: spiderr $
  */
 class LibertyQuota extends LibertyBase {
     /**
@@ -44,8 +44,8 @@ class LibertyQuota extends LibertyBase {
 		$this->mQuotaId = $pQuotaId;
 		LibertyBase::LibertyBase();
 	}
-	
-	
+
+
     /**
     * Any method named Store inherently implies data will be written to the database
     * @param pParamHash be sure to pass by reference in case we need to make modifcations to the hash
@@ -97,7 +97,7 @@ class LibertyQuota extends LibertyBase {
 
 		return( count( $this->mErrors ) == 0 );
 	}
-	
+
     /**
     * Load the data from the database
     * @param pParamHash be sure to pass by reference in case we need to make modifcations to the hash
@@ -118,9 +118,9 @@ class LibertyQuota extends LibertyBase {
 		}
 		return( count( $this->mInfo ) == 0 );
 	}
-	
+
     /**
-    * 
+    *
 	**/
 	function getList() {
 		$query = "SELECT qo.`quota_id`, qo.* FROM `".BIT_DB_PREFIX."quotas` qo";
@@ -129,7 +129,7 @@ class LibertyQuota extends LibertyBase {
 	}
 
     /**
-    * 
+    *
 	**/
 	function getQuotaMenu( $pName='quota_menu', $pSelectId=NULL ) {
 		$query = "SELECT qo.`title`, qo.`quota_id` FROM `".BIT_DB_PREFIX."quotas` qo";
@@ -147,10 +147,10 @@ class LibertyQuota extends LibertyBase {
 		return $this->mDb->getAssoc( $sql );
 	}
 
-	
+
 
     /**
-    * 
+    *
 	**/
 	function assignQuotaToGroup( $pQuotaId, $pGroupId ) {
 		if( is_numeric( $pQuotaId ) && is_numeric( $pGroupId ) ) {
@@ -175,11 +175,11 @@ class LibertyQuota extends LibertyBase {
 	function isUserUnderQuota( $pUserId ) {
 		$ret = FALSE;
 		if( is_numeric( $pUserId) ) {
-			$query = 'SELECT MAX(qo.`disk_usage`) AS `disk_usage` 
+			$query = 'SELECT MAX(qo.`disk_usage`) AS `disk_usage`
 					  FROM `'.BIT_DB_PREFIX.'users_users` uu
 						INNER JOIN `'.BIT_DB_PREFIX.'users_groups_map` ugm ON ( ugm.`user_id`=uu.`user_id` )
-						INNER JOIN `'.BIT_DB_PREFIX.'quotas_group_map` qgm ON( qgm.`group_id`=ugm.`group_id` ) 
-						INNER JOIN `'.BIT_DB_PREFIX.'quotas` qo ON( qo.`quota_id`=qgm.`quota_id` ) 
+						INNER JOIN `'.BIT_DB_PREFIX.'quotas_group_map` qgm ON( qgm.`group_id`=ugm.`group_id` )
+						INNER JOIN `'.BIT_DB_PREFIX.'quotas` qo ON( qo.`quota_id`=qgm.`quota_id` )
 					  WHERE uu.`user_id`=?';
 			if( $rs = $this->mDb->query( $query, array( $pUserId ) ) ) {
 				$diskQuota = $rs->fields['disk_usage'];
@@ -201,11 +201,11 @@ class LibertyQuota extends LibertyBase {
 	function getUserQuota( $pUserId ) {
 		$ret = 0;
 		if( is_numeric( $pUserId ) ) {
-			$query = 'SELECT MAX(qo.`disk_usage`) AS `disk_usage` 
+			$query = 'SELECT MAX(qo.`disk_usage`) AS `disk_usage`
 					  FROM `'.BIT_DB_PREFIX.'users_users` uu
 						INNER JOIN `'.BIT_DB_PREFIX.'users_groups_map` ugm ON ( ugm.`user_id`=uu.`user_id` )
-						INNER JOIN `'.BIT_DB_PREFIX.'quotas_group_map` qgm ON( qgm.`group_id`=ugm.`group_id` ) 
-						INNER JOIN `'.BIT_DB_PREFIX.'quotas` qo ON( qo.`quota_id`=qgm.`quota_id` ) 
+						INNER JOIN `'.BIT_DB_PREFIX.'quotas_group_map` qgm ON( qgm.`group_id`=ugm.`group_id` )
+						INNER JOIN `'.BIT_DB_PREFIX.'quotas` qo ON( qo.`quota_id`=qgm.`quota_id` )
 					  WHERE uu.`user_id`=?';
 			$ret = $this->mDb->getOne( $query, array( $pUserId ) );
 		}
@@ -220,7 +220,7 @@ class LibertyQuota extends LibertyBase {
 	function getUserUsage( $pUserId ) {
 		$ret = 0;
 		if( is_numeric( $pUserId ) ) {
-			$ret = $this->mDb->getOne( "SELECT SUM(`size`) FROM `".BIT_DB_PREFIX."liberty_files` WHERE `user_id`=?", array( $pUserId ) );
+			$ret = $this->mDb->getOne( "SELECT SUM(`file_size`) FROM `".BIT_DB_PREFIX."liberty_files` WHERE `user_id`=?", array( $pUserId ) );
 		}
 		return $ret;
 	}
@@ -237,11 +237,11 @@ class LibertyQuota extends LibertyBase {
 		}
 		return $ret;
 	}
-	
+
 	function isValid() {
 		return( @BitBase::verifyId( $this->mQuotaId ) );
 	}
-	
+
 }
 
 ?>
