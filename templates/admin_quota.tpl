@@ -35,14 +35,14 @@
 		</tr>
 		{foreach key=quotaId item=quota from=$quotaList}
 			<tr class="{cycle values=odd,even}">
-				<td><a href="{$smarty.server.PHP_SELF}?page=quota&quota_id={$quotaId}">{$quota.title}</a></td>
+				<td><a href="{$smarty.server.PHP_SELF}?page=quota&quota_id={$quotaId}">{$quota.title|escape}</a></td>
 				<td align="right">{$quota.disk_usage/1000000} MB</td>
 				<td align="right">{$quota.monthly_transfer/1000000} MB</td>
 			</tr>
 		{/foreach}
 	</table>
 {else}
-	{assign var=editLabel value=$gQuota->mInfo.title|default:"New Quota"}
+	{assign var=editLabel value=$gQuota->mInfo.title|escape|default:"New Quota"}
 	{form legend="Edit `$editLabel`"}
 		<input type="hidden" name="page" value="{$page}" />
 		<input type="hidden" name="quota_id" value="{$gQuota->mQuotaId}" />
