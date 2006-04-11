@@ -53,10 +53,10 @@ $sequences = array (
 $gBitInstaller->registerSchemaSequences( QUOTA_PKG_NAME, $sequences );
 
 $gBitInstaller->registerUserPermissions( QUOTA_PKG_NAME, array(
-	array('bit_p_create_quota', 'Can create a quota', 'registered', QUOTA_PKG_NAME),
-	array('bit_p_quota_edit', 'Can edit any quota', 'editors', QUOTA_PKG_NAME),
-	array('bit_p_quota_admin', 'Can admin quota', 'editors', QUOTA_PKG_NAME),
-	array('bit_p_read_quota', 'Can read quota', 'basic', QUOTA_PKG_NAME),
+	array('p_quota_create', 'Can create a quota', 'registered', QUOTA_PKG_NAME),
+	array('p_quota_edit', 'Can edit any quota', 'editors', QUOTA_PKG_NAME),
+	array('p_quota_admin', 'Can admin quota', 'editors', QUOTA_PKG_NAME),
+	array('p_quota_read', 'Can read quota', 'basic', QUOTA_PKG_NAME),
 ) );
 
 $gBitInstaller->registerPreferences( QUOTA_PKG_NAME, array(
