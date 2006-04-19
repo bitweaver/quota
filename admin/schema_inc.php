@@ -73,4 +73,5 @@ $gBitInstaller->registerSchemaDefault( QUOTA_PKG_NAME, array(
 	"INSERT INTO `".BIT_DB_PREFIX."quotas_group_map` ( `quota_id`, `group_id` ) VALUES ( 1, 3 )",
 	"INSERT INTO `".BIT_DB_PREFIX."quotas_group_map` ( `quota_id`, `group_id` ) VALUES ( 2, 2 )",
 ) );
+// Last two INSERTs should be moved to installer pump page to avoid CONSTRAINT issues
 ?>
