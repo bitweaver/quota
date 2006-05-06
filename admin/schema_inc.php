@@ -19,7 +19,7 @@ $tables = array(
 	quota_id I4 PRIMARY,
 	group_id I4 PRIMARY
 	CONSTRAINT ', CONSTRAINT `quotas_group_ref` FOREIGN KEY (`group_id`) REFERENCES `".BIT_DB_PREFIX."users_groups`( `group_id` )
-				 , CONSTRAINT `quotas_map_ref` FOREIGN KEY (`quota_id`) REFERENCES `".BIT_DB_PREFIX."quotas`( `quota_id` )'
+				, CONSTRAINT `quotas_map_ref` FOREIGN KEY (`quota_id`) REFERENCES `".BIT_DB_PREFIX."quotas`( `quota_id` )'
 ",
 
 );
@@ -35,9 +35,6 @@ foreach( array_keys( $tables ) AS $tableName ) {
 $gBitInstaller->registerPackageInfo( QUOTA_PKG_NAME, array(
 	'description' => "Quota system limits user disk and bandwidth usage for Liberty content",
 	'license' => '<a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL</a>',
-	'version' => '0.1',
-	'state' => 'beta',
-	'dependencies' => 'liberty',
 ) );
 
 // ### Indexes
@@ -48,7 +45,7 @@ $gBitInstaller->registerSchemaIndexes( QUOTA_PKG_NAME, $indices );
 
 // ### Sequences
 $sequences = array (
-	'quota_id_seq' => array( 'start' => 3 ) 
+	'quota_id_seq' => array( 'start' => 3 )
 );
 $gBitInstaller->registerSchemaSequences( QUOTA_PKG_NAME, $sequences );
 
