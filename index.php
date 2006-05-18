@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/index.php,v 1.3 2005/08/01 18:41:18 squareing Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/index.php,v 1.4 2006/05/18 18:37:49 squareing Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: index.php,v 1.3 2005/08/01 18:41:18 squareing Exp $
+ * $Id: index.php,v 1.4 2006/05/18 18:37:49 squareing Exp $
  * @package quota
  */
 
@@ -19,28 +19,7 @@ require_once( '../bit_setup_inc.php' );
 
 $gBitSystem->verifyPackage( 'quota' );
 
-require_once( QUOTA_PKG_PATH.'LibertyQuota.php' );
-
-$quota = new LibertyQuota();
-$diskUsage = $quota->getUserUsage( $gBitUser->mUserId );
-$diskQuota = $quota->getUserQuota( $gBitUser->mUserId );
-
-if( $diskQuota != 0 ) {
-	$quotaPercent = round( (($diskUsage / $diskQuota) * 100), 0 );
-} else {
-	$quotaPercent = 0;
-}
-
-if( $quotaPercent > 100 ) {
-	$errors['disk_quota'] = "You are over your disk quota.";
-	$gBitSmarty->assign_by_ref( 'errors', $errors );
-	$quotaPercent = 100;
-}
-
-$gBitSmarty->assign( 'usage', round( ($diskUsage / 1000000), 2 ) );
-$gBitSmarty->assign( 'quota', round( ($diskQuota / 1000000), 2 ) );
-$gBitSmarty->assign_by_ref( 'quotaPercent', $quotaPercent );
+require_once( QUOTA_PKG_PATH.'quota_inc.php' );
 
 $gBitSystem->display( 'bitpackage:quota/quota.tpl', 'View Quota' );
-
 ?>
