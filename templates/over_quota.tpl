@@ -6,5 +6,5 @@
 	<div class="body">
 		{formfeedback error="{tr}You are over your quota and have no space to upload new files.{/tr}"}
 		<p>{tr}Delete some of your files or see you system administrator about getting a larger quota.{/tr}</p>
-	</div>
+	</div><!-- end .body -->
 </div>
