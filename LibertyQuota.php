@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.9 2006/02/18 21:03:46 spiderr Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.10 2006/07/06 23:58:24 spiderr Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: LibertyQuota.php,v 1.9 2006/02/18 21:03:46 spiderr Exp $
+ * $Id: LibertyQuota.php,v 1.10 2006/07/06 23:58:24 spiderr Exp $
  * @package quota
  */
 
@@ -28,7 +28,7 @@ require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
  *
  * @author spider <spider@steelsun.com>
  *
- * @version $Revision: 1.9 $ $Date: 2006/02/18 21:03:46 $ $Author: spiderr $
+ * @version $Revision: 1.10 $ $Date: 2006/07/06 23:58:24 $ $Author: spiderr $
  */
 class LibertyQuota extends LibertyBase {
     /**
@@ -174,7 +174,7 @@ class LibertyQuota extends LibertyBase {
 	**/
 	function isUserUnderQuota( $pUserId ) {
 		$ret = FALSE;
-		if( is_numeric( $pUserId) ) {
+		if( is_numeric( $pUserId ) ) {
 			$query = 'SELECT MAX(qo.`disk_usage`) AS `disk_usage`
 					  FROM `'.BIT_DB_PREFIX.'users_users` uu
 						INNER JOIN `'.BIT_DB_PREFIX.'users_groups_map` ugm ON ( ugm.`user_id`=uu.`user_id` )
