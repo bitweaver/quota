@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.10 2006/07/06 23:58:24 spiderr Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.11 2006/08/28 14:50:47 sylvieg Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: LibertyQuota.php,v 1.10 2006/07/06 23:58:24 spiderr Exp $
+ * $Id: LibertyQuota.php,v 1.11 2006/08/28 14:50:47 sylvieg Exp $
  * @package quota
  */
 
@@ -28,7 +28,7 @@ require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
  *
  * @author spider <spider@steelsun.com>
  *
- * @version $Revision: 1.10 $ $Date: 2006/07/06 23:58:24 $ $Author: spiderr $
+ * @version $Revision: 1.11 $ $Date: 2006/08/28 14:50:47 $ $Author: sylvieg $
  */
 class LibertyQuota extends LibertyBase {
     /**
@@ -173,6 +173,7 @@ class LibertyQuota extends LibertyBase {
     * returns the quota and consumption if a user is under usage level
 	**/
 	function isUserUnderQuota( $pUserId ) {
+bt();
 		$ret = FALSE;
 		if( is_numeric( $pUserId ) ) {
 			$query = 'SELECT MAX(qo.`disk_usage`) AS `disk_usage`
@@ -184,7 +185,7 @@ class LibertyQuota extends LibertyBase {
 			if( $rs = $this->mDb->query( $query, array( $pUserId ) ) ) {
 				$diskQuota = $rs->fields['disk_usage'];
 				$diskConsumed = $this->getUserUsage( $pUserId );
-				if( $diskQuota > $diskConsumed ) {
+				if( $diskQuota == NULL || $diskQuota > $diskConsumed ) {
 					$ret = array($diskQuota, $diskConsumed);
 				}
 			}
