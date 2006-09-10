@@ -26,8 +26,6 @@ $tables = array(
 
 global $gBitInstaller;
 
-$gBitInstaller->makePackageHomeable('quota');
-
 foreach( array_keys( $tables ) AS $tableName ) {
 	$gBitInstaller->registerSchemaTable( QUOTA_PKG_NAME, $tableName, $tables[$tableName] );
 }
