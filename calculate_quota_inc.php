@@ -1,4 +1,14 @@
 <?php
+/**
+ * @version  $Revision: 1.2 $
+ * @package  quota
+ * 
+ * settings that are useful to know about at upload time
+ */
+
+/**
+ * quota setup
+ */
 require_once( QUOTA_PKG_PATH.'LibertyQuota.php' );
 
 $quota = new LibertyQuota();

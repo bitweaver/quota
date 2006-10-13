@@ -1,4 +1,14 @@
 <?php
+/**
+ * @version  $Revision: 1.3 $
+ * @package  quota
+ * 
+ * settings that are useful to know about at upload time
+ */
+
+/**
+ * quota setup
+ */
 require_once( QUOTA_PKG_PATH.'LibertyQuota.php' );
 global $gBitSmarty, $assignUser, $gBitUser;
 
