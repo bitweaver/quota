@@ -52,6 +52,7 @@ $gBitInstaller->registerUserPermissions( QUOTA_PKG_NAME, array(
 	array('p_quota_edit', 'Can edit any quota', 'editors', QUOTA_PKG_NAME),
 	array('p_quota_admin', 'Can admin quota', 'editors', QUOTA_PKG_NAME),
 	array('p_quota_read', 'Can read quota', 'basic', QUOTA_PKG_NAME),
+	array('p_quota_unlimited', 'Can upload unlimited amount of data', 'editors', QUOTA_PKG_NAME),
 ) );
 
 $gBitInstaller->registerPreferences( QUOTA_PKG_NAME, array(
