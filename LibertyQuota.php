@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.12 2006/09/05 21:12:59 spiderr Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.13 2007/05/07 15:59:55 spiderr Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: LibertyQuota.php,v 1.12 2006/09/05 21:12:59 spiderr Exp $
+ * $Id: LibertyQuota.php,v 1.13 2007/05/07 15:59:55 spiderr Exp $
  * @package quota
  */
 
@@ -28,7 +28,7 @@ require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
  *
  * @author spider <spider@steelsun.com>
  *
- * @version $Revision: 1.12 $ $Date: 2006/09/05 21:12:59 $ $Author: spiderr $
+ * @version $Revision: 1.13 $ $Date: 2007/05/07 15:59:55 $ $Author: spiderr $
  */
 class LibertyQuota extends LibertyBase {
     /**
@@ -220,7 +220,8 @@ class LibertyQuota extends LibertyBase {
 	function getUserUsage( $pUserId ) {
 		$ret = 0;
 		if( is_numeric( $pUserId ) ) {
-			$ret = $this->mDb->getOne( "SELECT SUM(`file_size`) FROM `".BIT_DB_PREFIX."liberty_files` WHERE `user_id`=?", array( $pUserId ) );
+			// INNER JOIN on attachments so orphans are not counted
+			$ret = $this->mDb->getOne( "SELECT SUM(`file_size`) FROM `".BIT_DB_PREFIX."liberty_files` lf  INNER JOIN `".BIT_DB_PREFIX."liberty_attachments` la ON (lf.`file_id`=la.`attachment_id`) WHERE lf.`user_id`=?", array( $pUserId ) );
 		}
 		return $ret;
 	}
