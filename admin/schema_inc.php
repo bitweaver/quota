@@ -62,12 +62,6 @@ $gBitInstaller->registerPreferences( QUOTA_PKG_NAME, array(
 	array(QUOTA_PKG_NAME, 'quota_list_description','y'),
 ) );
 
-$gBitInstaller->registerSchemaDefault( QUOTA_PKG_NAME, array(
-	"INSERT INTO `".BIT_DB_PREFIX."quotas` ( `quota_id`, `disk_usage`, `monthly_transfer`, `title`, `description` ) VALUES ('1', 2000000, 20000000, 'Free Trial', 'A little space to try out site features' )",
-	"INSERT INTO `".BIT_DB_PREFIX."quotas` ( `quota_id`, `disk_usage`, `monthly_transfer`, `title`, `description` ) VALUES ('2', 10000000, 100000000, 'Site Supporters', 'Extra space for site supporters.' )",
-
-	"INSERT INTO `".BIT_DB_PREFIX."quotas_group_map` ( `quota_id`, `group_id` ) VALUES ( 1, 3 )",
-	"INSERT INTO `".BIT_DB_PREFIX."quotas_group_map` ( `quota_id`, `group_id` ) VALUES ( 2, 2 )",
-) );
-// Last two INSERTs should be moved to installer pump page to avoid CONSTRAINT issues
+//$gBitInstaller->registerSchemaDefault( QUOTA_PKG_NAME, array(
+//) );
 ?>
