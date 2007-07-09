@@ -1,4 +1,4 @@
-<div class="quota">
+<div class="display quota">
 	<div class="header">
 		<h1>{tr}Usage Quota{/tr}</h1>
 	</div>
