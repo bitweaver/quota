@@ -13,6 +13,12 @@ array( 'DATADICT' => array(
 		'tiki_quotas_group_map' => 'quotas_group_map',
 	)),
 )),
+
+// query: create a quota_id_seq and bring the table up to date with the current max quota_id used in the quotas table - this basically for mysql
+array( 'PHP' => '
+	$query = $gBitDb->getOne("SELECT MAX(quota_id) FROM `'.BIT_DB_PREFIX.'quotas`");
+	$tempId = $gBitDb->mDb->GenID("`'.BIT_DB_PREFIX.'quota_id_seq`", $query);
+' ),
 		)
 	),
 
