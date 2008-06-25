@@ -1,6 +1,6 @@
 <?php
 /**
- * @version  $Revision: 1.2 $
+ * @version  $Revision: 1.3 $
  * @package  quota
  * 
  * settings that are useful to know about at upload time
@@ -13,7 +13,7 @@ require_once( QUOTA_PKG_PATH.'LibertyQuota.php' );
 
 $quota = new LibertyQuota();
 if( !$gBitUser->isAdmin() && !$quota->isUserUnderQuota( $gBitUser->mUserId ) ) {
-	$gBitSystem->display( 'bitpackage:quota/over_quota.tpl', tra( 'You are over your quota.' ) );
+	$gBitSystem->display( 'bitpackage:quota/over_quota.tpl', tra( 'You are over your quota.' ) , array( 'display_mode' => 'display' ));
 	die;
 }
 
