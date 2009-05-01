@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.14 2007/05/07 16:53:47 spiderr Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.15 2009/05/01 15:53:16 wjames5 Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: LibertyQuota.php,v 1.14 2007/05/07 16:53:47 spiderr Exp $
+ * $Id: LibertyQuota.php,v 1.15 2009/05/01 15:53:16 wjames5 Exp $
  * @package quota
  */
 
@@ -28,7 +28,7 @@ require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
  *
  * @author spider <spider@steelsun.com>
  *
- * @version $Revision: 1.14 $ $Date: 2007/05/07 16:53:47 $ $Author: spiderr $
+ * @version $Revision: 1.15 $ $Date: 2009/05/01 15:53:16 $ $Author: wjames5 $
  */
 class LibertyQuota extends LibertyBase {
     /**
@@ -228,7 +228,6 @@ class LibertyQuota extends LibertyBase {
 
     /**
     * Generates the URL to the quota page
-    * @param pExistsHash the hash that was returned by LibertyContent::pageExists
     * @return the link to display the page.
     */
 	function getDisplayUrl() {
