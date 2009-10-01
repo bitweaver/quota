@@ -1,14 +1,14 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.15 2009/05/01 15:53:16 wjames5 Exp $
+ * $Header: /cvsroot/bitweaver/_bit_quota/LibertyQuota.php,v 1.16 2009/10/01 13:45:46 wjames5 Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
  * Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
- * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details
  *
- * $Id: LibertyQuota.php,v 1.15 2009/05/01 15:53:16 wjames5 Exp $
+ * $Id: LibertyQuota.php,v 1.16 2009/10/01 13:45:46 wjames5 Exp $
  * @package quota
  */
 
@@ -28,7 +28,7 @@ require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
  *
  * @author spider <spider@steelsun.com>
  *
- * @version $Revision: 1.15 $ $Date: 2009/05/01 15:53:16 $ $Author: wjames5 $
+ * @version $Revision: 1.16 $ $Date: 2009/10/01 13:45:46 $ $Author: wjames5 $
  */
 class LibertyQuota extends LibertyBase {
     /**
