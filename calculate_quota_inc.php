@@ -1,6 +1,6 @@
 <?php
 /**
- * @version  $Revision: 1.3 $
+ * @version  $Revision$
  * @package  quota
  * 
  * settings that are useful to know about at upload time

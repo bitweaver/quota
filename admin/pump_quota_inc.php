@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_quota/admin/pump_quota_inc.php,v 1.1 2007/07/09 13:16:15 squareing Exp $
+ * @version $Header$
  * @package install
  * @subpackage pumps
  */
