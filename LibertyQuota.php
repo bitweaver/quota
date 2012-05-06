@@ -40,9 +40,9 @@ class LibertyQuota extends LibertyBase {
     /**
     * During initialisation, be sure to call our base constructors
 	**/
-	function LibertyQuota( $pQuotaId=NULL, $pContentId=NULL ) {
+	function __construct( $pQuotaId=NULL, $pContentId=NULL ) {
 		$this->mQuotaId = $pQuotaId;
-		LibertyBase::LibertyBase();
+		parent::__construct();
 	}
 
 
