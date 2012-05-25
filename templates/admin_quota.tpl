@@ -25,7 +25,7 @@
 		</div>
 	{/form}
 
-	<a href="{$smarty.server.PHP_SELF}?page=quota&newquota=1">{tr}Create New Quota{/tr}</a>
+	<a href="{$smarty.server.SCRIPT_NAME}?page=quota&newquota=1">{tr}Create New Quota{/tr}</a>
 	<table class="data">
 		<caption>{tr}Defined Quotas{/tr}</caption>
 		<tr>
@@ -35,7 +35,7 @@
 		</tr>
 		{foreach key=quotaId item=quota from=$quotaList}
 			<tr class="{cycle values=odd,even}">
-				<td><a href="{$smarty.server.PHP_SELF}?page=quota&quota_id={$quotaId}">{$quota.title|escape}</a></td>
+				<td><a href="{$smarty.server.SCRIPT_NAME}?page=quota&quota_id={$quotaId}">{$quota.title|escape}</a></td>
 				<td align="right">{$quota.disk_usage/1000000} MB</td>
 				<td align="right">{$quota.monthly_transfer/1000000} MB</td>
 			</tr>
