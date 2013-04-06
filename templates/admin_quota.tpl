@@ -3,7 +3,7 @@
 	{form legend="Assign Quota to Groups"}
 		<input type="hidden" name="page" value="{$page}" />
 
-		{formfeedback error=`$errors.group`}
+		{formfeedback error=$errors.group}
 
 		<div class="control-group">
 			{formlabel label="Group" for=""}
@@ -47,7 +47,7 @@
 		<input type="hidden" name="page" value="{$page}" />
 		<input type="hidden" name="quota_id" value="{$gQuota->mQuotaId}" />
 		<div class="control-group">
-			{formfeedback error=`$errors.title`}
+			{formfeedback error=$errors.title}
 			{formlabel label="Quota Title" for="title"}
 			{forminput}
 				<input size="40" type="text" name="title" id="title" value="{$gQuota->mInfo.title|escape}" />
@@ -55,7 +55,7 @@
 			{/forminput}
 		</div>
 		<div class="control-group">
-			{formfeedback error=`$errors.disk_usage`}
+			{formfeedback error=$errors.disk_usage}
 			{formlabel label="Disk Usage" for="disk_usage"}
 			{forminput}
 				<input size="10" type="text" name="disk_usage" id="disk_usage" value="{$gQuota->mInfo.disk_usage/1000000}" />
@@ -63,7 +63,7 @@
 			{/forminput}
 		</div>
 		<div class="control-group">
-			{formfeedback error=`$errors.monthly_transfer`}
+			{formfeedback error=$errors.monthly_transfer}
 			{formlabel label="Monthly Transfer" for="monthly_transfer"}
 			{forminput}
 				<input size="10" type="text" name="monthly_transfer" id="monthly_transfer" value="{$gQuota->mInfo.monthly_transfer/1000000}" />
