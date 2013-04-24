@@ -26,7 +26,7 @@
 	{/form}
 
 	<a href="{$smarty.server.SCRIPT_NAME}?page=quota&newquota=1">{tr}Create New Quota{/tr}</a>
-	<table class="data">
+	<table class="table data">
 		<caption>{tr}Defined Quotas{/tr}</caption>
 		<tr>
 			<th>{tr}Quota{/tr}</th>
