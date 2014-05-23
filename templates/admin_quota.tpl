@@ -21,7 +21,7 @@
 		{/foreach}
 
 		<div class="control-group submit">
-			<input type="submit" class="btn" name="assignquota" value="{tr}Assign quota{/tr}" />
+			<input type="submit" class="btn btn-default" name="assignquota" value="{tr}Assign quota{/tr}" />
 		</div>
 	{/form}
 
@@ -72,8 +72,8 @@
 		</div>
 
 		<div class="control-group submit">
-			<input type="submit" class="btn" name="cancelquota" value="{tr}Cancel{/tr}" />&nbsp;
-			<input type="submit" class="btn" name="savequota" value="{tr}Save quota{/tr}" />
+			<input type="submit" class="btn btn-default" name="cancelquota" value="{tr}Cancel{/tr}" />&nbsp;
+			<input type="submit" class="btn btn-default" name="savequota" value="{tr}Save quota{/tr}" />
 		</div>
 	{/form}
 {/if}
