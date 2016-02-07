@@ -24,7 +24,7 @@ if( !empty( $_REQUEST['savequota'] ) ) {
 		die;
 	} else {
 		$saveError = TRUE;
-		$gBitSmarty->assign_by_ref( 'errors', $gQuota->mErrors );
+		$gBitSmarty->assignByRef( 'errors', $gQuota->mErrors );
 	}
 } elseif( !empty( $_REQUEST['assignquota'] ) ) {
 	foreach( array_keys( $_REQUEST ) as $key ) {
@@ -37,16 +37,16 @@ if( !empty( $_REQUEST['savequota'] ) ) {
 }
 $gQuota->load();
 if( $gQuota->isValid() || isset( $_REQUEST['newquota'] ) || !empty( $saveError ) ) {
-	$gBitSmarty->assign_by_ref('gQuota', $gQuota);
+	$gBitSmarty->assignByRef('gQuota', $gQuota);
 } else {
 	$quotas = $gQuota->getList();
 	$systemGroups = $gQuota->getQuotaGroups();
-	$gBitSmarty->assign_by_ref('systemGroups', $systemGroups );
+	$gBitSmarty->assignByRef('systemGroups', $systemGroups );
 foreach( array_keys( $systemGroups ) as $groupId ) {
 	$groupQuota[$groupId] = $gQuota->getQuotaMenu( 'quota_group_'.$groupId, $systemGroups[$groupId]['quota_id'] );
 }
-	$gBitSmarty->assign_by_ref('groupQuota', $groupQuota );
-	$gBitSmarty->assign_by_ref('quotaList', $quotas);
+	$gBitSmarty->assignByRef('groupQuota', $groupQuota );
+	$gBitSmarty->assignByRef('quotaList', $quotas);
 }
 
 ?>
