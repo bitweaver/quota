@@ -15,7 +15,7 @@
 /**
  * required setup
  */
-require_once( LIBERTY_PKG_PATH.'LibertyAttachable.php' );
+require_once( LIBERTY_PKG_CLASS_PATH.'LibertyAttachable.php' );
 
 /**
  * Quota class to illustrate best practices when creating a new bitweaver package that

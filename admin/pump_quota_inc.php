@@ -8,7 +8,7 @@
 /**
  * required setup
  */
-require_once( QUOTA_PKG_PATH.'LibertyQuota.php' );
+require_once( QUOTA_PKG_CLASS_PATH.'LibertyQuota.php' );
 
 $quota = new LibertyQuota();
 $quota->mDb->Execute("INSERT INTO `".BIT_DB_PREFIX."quotas` ( `quota_id`, `disk_usage`, `monthly_transfer`, `title`, `description` ) VALUES ('1', 2000000, 20000000, 'Free Trial', 'A little space to try out site features' )");

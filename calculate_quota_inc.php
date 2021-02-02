@@ -9,7 +9,7 @@
 /**
  * quota setup
  */
-require_once( QUOTA_PKG_PATH.'LibertyQuota.php' );
+require_once( QUOTA_PKG_CLASS_PATH.'LibertyQuota.php' );
 
 $quota = new LibertyQuota();
 if( !$gBitUser->isAdmin() && !$quota->isUserUnderQuota( $gBitUser->mUserId ) ) {

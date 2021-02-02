@@ -9,7 +9,7 @@
 /**
  * quota setup
  */
-require_once( QUOTA_PKG_PATH.'LibertyQuota.php' );
+require_once( QUOTA_PKG_CLASS_PATH.'LibertyQuota.php' );
 global $gBitSmarty, $assignUser, $gBitUser;
 
 if( empty( $pQuotaUserId ) ) {

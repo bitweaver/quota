@@ -10,7 +10,7 @@
 //	$gBitSmarty->assign( 'home_quota', $_REQUEST["homeSample"] );
 //}
 
-require_once( QUOTA_PKG_PATH.'LibertyQuota.php' );
+require_once( QUOTA_PKG_CLASS_PATH.'LibertyQuota.php' );
 
 if( !empty( $_REQUEST['cancelquota'] ) ) {
 	unset( $_REQUEST['quota_id'] );
